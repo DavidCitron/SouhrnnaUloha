@@ -1,0 +1,2 @@
+Šachy;true; 5
+Člověče nezlob se!; false;2
