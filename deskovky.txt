@@ -1,2 +1,4 @@
-Šachy;true; 5
-Člověče nezlob se!; false;2
+Šachy;true;3
+Člověče nezlob se!;true;1
+Osadnící z Katanu;false;3
+Bang!;true;2

@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,6 +6,7 @@ import java.util.Scanner;
 public class PraceSeSoubory {
     private static final String ODDELOVAC = ";";
     private static final String SOUBOR = "deskovky.txt";
+
 
     public List<Deskovka> ziskejSeznamDeskovekZeSouboru(){
         try{
@@ -21,7 +20,7 @@ public class PraceSeSoubory {
                 }
                 String nazev = castiRadku[0];
                 boolean zakoupeno;
-                if(castiRadku[1] == "true"){
+                if(castiRadku[1].equals("true")){
                     zakoupeno = true;
                 }else{
                     zakoupeno = false;
@@ -29,8 +28,24 @@ public class PraceSeSoubory {
                 int oblibenost = Integer.parseInt(castiRadku[2]);
                 seznamDeskovek.add(new Deskovka(nazev, zakoupeno, oblibenost));
             }
+            scanner.close();
             return seznamDeskovek;
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void zapisDoSouboru(List<Deskovka> seznam){
+        try{
+            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(SOUBOR)));
+            for (Deskovka deskovka : seznam){
+                String nazev = deskovka.getNazev();
+                int oblibenost = deskovka.getOblibenost();
+                boolean zakoupeno = deskovka.isZakoupeno();
+                writer.println(nazev + ODDELOVAC + zakoupeno + ODDELOVAC + oblibenost);
+            }
+            writer.flush();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
